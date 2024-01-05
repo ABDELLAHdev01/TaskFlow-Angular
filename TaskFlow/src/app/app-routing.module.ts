@@ -4,7 +4,14 @@ import { UserComponent } from './layout/user/user.component';
 
 const routes: Routes = [
   {
-
+    path: "",
+    component: UserComponent,
+    children: [
+      {
+        path: "home",
+        
+      }
+    ]
   }
 ];
 
