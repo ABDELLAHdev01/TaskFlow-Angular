@@ -8,6 +8,8 @@ import { UserComponent } from './layout/user/user.component';
 import { initFlowbite } from 'flowbite';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { MaindashboardComponent } from './components/maindashboard/maindashboard.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { MaindashboardComponent } from './components/maindashboard/maindashboard
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    StoreModule.forRoot({}, {}),
+    EffectsModule.forRoot([])
   ],
   providers: [],
   bootstrap: [AppComponent]
