@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -10,6 +10,19 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { MaindashboardComponent } from './components/maindashboard/maindashboard.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { AuthComponent } from './layout/auth/auth.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { LandingPageComponent } from './layout/landing-page/landing-page.component';
+import { HeaderComponent } from './components/header/header.component';
+import { HeroComponent } from './components/hero/hero.component';
+import { HttpClientModule } from '@angular/common/http';
+import { userReducer } from './states/user/user-reducer';
+import { UserEffects } from './states/user/user-effects';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
 
 @NgModule({
   declarations: [
@@ -18,12 +31,21 @@ import { EffectsModule } from '@ngrx/effects';
     UserComponent,
     SidebarComponent,
     MaindashboardComponent,
+    AuthComponent,
+    LoginComponent,
+    RegisterComponent,
+    LandingPageComponent,
+    HeaderComponent,
+    HeroComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot({}, {}),
-    EffectsModule.forRoot([])
+    StoreModule.forRoot({ user: userReducer }),
+    EffectsModule.forRoot([UserEffects]),
+    HttpClientModule,
+    ReactiveFormsModule,
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })
   ],
   providers: [],
   bootstrap: [AppComponent]
