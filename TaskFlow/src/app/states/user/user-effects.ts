@@ -5,6 +5,10 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { UserService } from 'src/app/service/user.service';
 import * as UserActions from '../user/user-action';
 import { TokenService } from 'src/app/service/token.service';
+import { Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
+
+
 
 @Injectable()
 export class UserEffects {
@@ -18,7 +22,7 @@ export class UserEffects {
               if (user.token){
                 this.tokenService.saveToken(user.token)
               }
-   
+
              
               return UserActions.registerSuccess({ user });
             }),
@@ -33,7 +37,7 @@ export class UserEffects {
       login$ = createEffect(() => this.actions$.pipe(
         ofType(UserActions.login),
         mergeMap((action) =>
-          this.userService.RegisterUser(action.user).pipe(
+          this.userService.loginUser(action.user).pipe(
             map(user => {
               // Assuming the token is a property on the user object
               if (user.token){
@@ -48,12 +52,28 @@ export class UserEffects {
         )
       ));
 
-      // login$ = createEffect(()=>) 
+      loginSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserActions.loginSuccess),
+      tap(() => this.router.navigateByUrl('/dashboard'))  
+    ),
+    { dispatch: false }  
+  );
+
+  registerSuccefully$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(UserActions.registerSuccess),
+    tap(() => this.router.navigateByUrl('/dashboard'))  
+  ),
+  { dispatch: false }  
+);
+
 
     constructor(
     private actions$: Actions,
     private userService: UserService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private router : Router
 
     ){}
 }

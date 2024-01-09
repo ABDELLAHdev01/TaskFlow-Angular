@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/states/app-state';
 import * as UserActions from '../../states/user/user-action'
 import { User } from 'src/app/domain/user-model';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-login',
@@ -31,6 +32,7 @@ export class LoginComponent implements OnInit {
       console.log('Form Data: ', this.loginForm.value);
       this.user = this.loginForm.value;
       this.loginUser(this.user);
+      // this.router.navigate(['/dashboard']);
     } else {
       // Handle form errors
       console.error('Form is invalid');
@@ -39,7 +41,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private store: Store<AppState>,
-    private _fb: FormBuilder
+    private _fb: FormBuilder,
+    private router : Router
     
     ) {}
 }
