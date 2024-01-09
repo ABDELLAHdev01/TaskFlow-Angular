@@ -34,5 +34,26 @@ export interface UserState {
       ...state,
       error,
       loading: false
-    }))
+    })),
+
+    on(UserActions.login, state => ({
+      ...state,
+      loading: true,
+      error: null,
+
+    })),
+
+    on(UserActions.loginSuccess, (state, { user }) => ({
+      ...state,
+      user,
+      loading: false
+    })),
+
+    on(UserActions.loginFailure, (state, { error }) => ({
+      ...state,
+      error,
+      loading: false
+    })),
+  
+
   );

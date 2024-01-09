@@ -15,3 +15,18 @@ export const registerSuccess = createAction(
     '[User] Register Failure',
     props<{ error: string }>()
   );
+
+  export const login = createAction(
+    '[User] Login',
+    props<{ user: User }>()
+  );
+
+  export const loginSuccess = createAction(
+    '[User] Login Success',
+    props<{ user: User }>()
+  );
+
+  export const loginFailure = createAction(
+    '[User] Login Failure',
+    props<{ error: string }>()
+  );

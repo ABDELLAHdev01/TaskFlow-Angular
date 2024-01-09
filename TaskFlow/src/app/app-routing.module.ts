@@ -5,7 +5,7 @@ import { AuthComponent } from './layout/auth/auth.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LandingPageComponent } from './layout/landing-page/landing-page.component';
-
+import { authGuard } from './guard/auth.guard';
 const routes: Routes = [
   {
     path: '',
@@ -15,7 +15,8 @@ const routes: Routes = [
 ,  {
     path: "dashboard",
     component: UserComponent,
-  },
+    canActivate: [authGuard] 
+    },
   {
     path: "auth",
     component: AuthComponent,
@@ -29,7 +30,9 @@ const routes: Routes = [
         component: RegisterComponent
       }
     ]
-  }
+  },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+
 ];
 
 @NgModule({

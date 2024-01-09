@@ -18,4 +18,10 @@ export class UserService {
 
     return this._http.post<User>(this.url_user+'register',user);
   }
+
+  
+  public loginUser(user: User): Observable<User>{
+
+    return this._http.post<User>(this.url_user+'authenticate',user);
+  } 
 }

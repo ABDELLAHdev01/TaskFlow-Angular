@@ -18,6 +18,8 @@ export class UserEffects {
               if (user.token){
                 this.tokenService.saveToken(user.token)
               }
+   
+             
               return UserActions.registerSuccess({ user });
             }),
             catchError(error => of(UserActions.registerFailure({ error: error.message })))
@@ -25,11 +27,34 @@ export class UserEffects {
         )
       ));
 
+   
+
+
+      login$ = createEffect(() => this.actions$.pipe(
+        ofType(UserActions.login),
+        mergeMap((action) =>
+          this.userService.RegisterUser(action.user).pipe(
+            map(user => {
+              // Assuming the token is a property on the user object
+              if (user.token){
+                this.tokenService.saveToken(user.token)
+              }
+   
+             
+              return UserActions.loginSuccess({ user });
+            }),
+            catchError(error => of(UserActions.loginFailure({ error: error.message })))
+          )
+        )
+      ));
+
+      // login$ = createEffect(()=>) 
 
     constructor(
-        private actions$: Actions,
+    private actions$: Actions,
     private userService: UserService,
     private tokenService: TokenService
+
     ){}
 }
 
