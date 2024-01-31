@@ -22,6 +22,7 @@ export class UserEffects {
               if (user.token){
                 this.tokenService.saveToken(user.token)
               }
+              this.tokenService.saveUser(user.firstName , user.lastName , user.email) ;
 
              
               return UserActions.registerSuccess({ user });

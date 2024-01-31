@@ -21,6 +21,10 @@ import { UserEffects } from './states/user/user-effects';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { taskReducer } from './states/task/task-reducer';
+import { TaskEffects } from './states/task/task-effects';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './interceptor/auth.interceptor';
 
 
 @NgModule({
@@ -40,13 +44,16 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot({ user: userReducer }),
-    EffectsModule.forRoot([UserEffects]),
+    StoreModule.forRoot({ user: userReducer , tasks: taskReducer }),
+    EffectsModule.forRoot([UserEffects ,TaskEffects]),
     HttpClientModule,
     ReactiveFormsModule,
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -7,14 +7,28 @@ import { TokenService } from 'src/app/service/token.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit  {
-  loggedIn !: boolean;
+  token: any;
+  firstName: any ;
+  lastName: any;
+  email: any;
 
   ngOnInit(): void {
-    if(this.token.getToken() === null) {
-      this.loggedIn = false;
-    }
+  this.token = localStorage.getItem('token') ;
+
+    this.firstName = localStorage.getItem('firstName') ;
+    this.lastName = localStorage.getItem('lastName') ;
+    this.email = localStorage.getItem('email') ;
+  }
+
+
+
+  signOut(): void {
+    this.tokenService.removeToken();
+    // refresh page
+    window.location.reload();
+
 
   }
 
-  constructor(private token:TokenService){}
+  constructor(private tokenService : TokenService){}
 }

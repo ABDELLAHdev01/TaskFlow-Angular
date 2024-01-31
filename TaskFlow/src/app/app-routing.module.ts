@@ -6,6 +6,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LandingPageComponent } from './layout/landing-page/landing-page.component';
 import { authGuard } from './guard/auth.guard';
+import { loggedGuard } from './guard/logged.guard';
 const routes: Routes = [
   {
     path: '',
@@ -20,10 +21,13 @@ const routes: Routes = [
   {
     path: "auth",
     component: AuthComponent,
+    canActivate: [loggedGuard] ,
+
     children: [
       {
         path: "login",
         component: LoginComponent
+        
       },
       {
         path: "register",
